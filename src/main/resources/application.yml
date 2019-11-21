@@ -1,0 +1,4 @@
+spring:
+  redis:
+    host: 122.51.51.150
+    port: 9998
