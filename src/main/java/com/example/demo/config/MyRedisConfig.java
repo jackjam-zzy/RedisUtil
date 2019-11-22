@@ -13,11 +13,14 @@ public class MyRedisConfig {
 
 
 
-    @Bean
-    public HashOperations<String, String, Object> hashOperations(RedisTemplate<String, Object> redisTemplate) {
-        return redisTemplate.opsForHash();
-    }
+//    @Bean
+//    public HashOperations<String, String, Object> hashOperations(RedisTemplate<String, Object> redisTemplate) {
+//        return redisTemplate.opsForHash();
+//    }
 
+    /*
+    * 自定义序列化规则
+    * */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -33,6 +36,8 @@ public class MyRedisConfig {
         template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
         return template;
     }
+
+
 
 //    @Bean
 //    public RedisTemplate<String, Days> redisTemplate(RedisConnectionFactory factory) {

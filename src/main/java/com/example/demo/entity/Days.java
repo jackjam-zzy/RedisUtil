@@ -1,7 +1,11 @@
 package com.example.demo.entity;
 
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 
+//实现了流式风格
+@Accessors(fluent = true)
 public class Days implements Serializable {
     private String openId;
     private String daysId;

@@ -1,6 +1,9 @@
 package com.example.demo.util;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -18,6 +21,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2019年06月19日
  */
 @Component
+@Slf4j
 public final class RedisUtil {
 
 
@@ -264,6 +268,8 @@ public final class RedisUtil {
             return false;
         }
     }
+
+
 
     /**
      * 删除hash表中的值
