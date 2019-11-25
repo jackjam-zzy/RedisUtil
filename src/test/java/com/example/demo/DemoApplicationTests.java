@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -97,11 +94,92 @@ class DemoApplicationTests {
     * */
     @Test
     void hAdd(){
-        Map<String,String> map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>();
         map.put("key1","value1");
         map.put("key2","value2");
         map.put("key3","value3");
         map.put("key4","value4");
+        redisUtil.hmset("11.25",map);
+
+        Map<Object, Object> hmget = redisUtil.hmget("11.25");
+        System.out.println(hmget);
     }
+
+    /*
+    * 对map<String,object>的map进行保存读取
+    * */
+    @Test
+    void hAddObject(){
+        Map<String,Object> map = new HashMap<>();
+        Days d1 = new Days();
+        d1.setDate("2019.2.2");
+        d1.setTitle("星期一");
+        d1.setItemNumber(22);
+        d1.setOpenId("555555555");
+        Days d2 = new Days();
+        d2.setDate("2019.2.2");
+        d2.setTitle("星期二");
+        d2.setItemNumber(44);
+        d2.setOpenId("666666666");
+        map.put("第一天",d1);
+        map.put("第二天",d2);
+        //保存值
+        redisUtil.hmset("天数",map);
+        //取出值
+        Map<Object, Object> result = redisUtil.hmget("天数");
+        System.out.println(result);
+    }
+
+
+
+    //=================================对set的测试=================================
+
+    /*
+    * 对Set<String>的set进行保存读取
+    * */
+    @Test
+    void sAdd(){
+        Set<String> set = new HashSet<>();
+        set.add("我是谁");
+        set.add("我是谁");
+        set.add("你妹的");
+        set.add("你妹");
+        set.add("妹的");
+        //保存
+        redisUtil.sSet("Set", set);
+        //读取
+        Set<Object> set1 = redisUtil.sGet("Set");
+
+        System.out.println(set1);
+    }
+
+    /*
+     * 对Set<Object>的set进行保存读取
+     * */
+    @Test
+    void sAddObject(){
+        Set<Days> set = new HashSet<>();
+        Days d1 = new Days();
+        d1.setDate("9999.2.2");
+        d1.setTitle("星期一");
+        d1.setItemNumber(999);
+        d1.setOpenId("486");
+        Days d2 = new Days();
+        d2.setDate("9999.2.2");
+        d2.setTitle("星期二");
+        d2.setItemNumber(666);
+        d2.setOpenId("110");
+
+        set.add(d1);
+        set.add(d2);
+
+        //保存
+        redisUtil.sSet("SetObject", set);
+        //读取
+        Set<Object> get = redisUtil.sGet("SetObject");
+
+        System.out.println(get);
+    }
+
 
 }

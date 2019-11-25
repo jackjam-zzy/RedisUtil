@@ -1,9 +1,7 @@
 package com.example.demo.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -44,7 +42,7 @@ public final class RedisUtil {
             }
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("expire设置键过期时间异常:key=" + key + " time=" + time + " cause:" + e.getMessage());
             return false;
         }
     }
@@ -69,7 +67,7 @@ public final class RedisUtil {
         try {
             return redisTemplate.hasKey(key);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("hasKey判断key是否存在异常:key=" + key + " cause:" + e.getMessage());
             return false;
         }
     }
@@ -114,7 +112,7 @@ public final class RedisUtil {
             redisTemplate.opsForValue().set(key, value);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("set设置键值异常:key=" + key + " value=" + value + " cause:" + e.getMessage());
             return false;
         }
     }
@@ -576,5 +574,9 @@ public final class RedisUtil {
             return 0;
         }
     }
+
+
+    // ============================ZSet=============================
+
 
 }
